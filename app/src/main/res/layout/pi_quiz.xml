@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="piQuiz"
+            type="de.fluchtwege.piscroller.viewmodel.PiQuizViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/quiz_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="@{piQuiz.answerEntered}"
+            android:gravity="center"
+            android:padding="@dimen/margin"
+            android:text="@{String.format(@string/quiz_question, piQuiz.digitPosition)}"
+            android:textColor="@color/colorPrimary"
+            android:textSize="28dp"
+            tools:text="What is the 3. digit of Pi ?" />
+
+        <TextView
+            android:id="@+id/quiz_next"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary"
+            android:clickable="true"
+            android:foreground="?selectableItemBackground"
+            android:gravity="center"
+            android:onClick="@{() -> piQuiz.onNext()}"
+            android:text="Next"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/quiz_next"
+            android:layout_below="@id/quiz_question"
+            android:enabled="@{!piQuiz.answerEntered}"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:text="@={piQuiz.answer}"
+            android:textColor="@{piQuiz.answerCorrect ? @color/correct_answer : @color/wrong_answer}"
+            android:textSize="@dimen/quiz_text_size"
+            tools:text="1" />
+    </RelativeLayout>
+</layout>
