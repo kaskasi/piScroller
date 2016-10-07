@@ -4,18 +4,12 @@ import java.io.Serializable;
 
 public class PiQuiz implements Serializable {
 
-    private final int position;
-    private final char digitOfPi;
+    private int position;
     private CharSequence answer;
 
-    public PiQuiz(int position, char digitOfPi) {
+    public PiQuiz(int position) {
         this.position = position;
-        this.digitOfPi = digitOfPi;
         this.answer = "";
-    }
-
-    public char getDigitOfPi() {
-        return digitOfPi;
     }
 
     public int getPosition() {
@@ -29,4 +23,9 @@ public class PiQuiz implements Serializable {
     public void setAnswer(CharSequence answer) {
         this.answer = answer;
     }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
 }

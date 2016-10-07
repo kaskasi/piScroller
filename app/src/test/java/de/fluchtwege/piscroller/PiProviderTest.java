@@ -17,7 +17,7 @@ public class PiProviderTest {
     PiProvider piProvider;
 
     @Test
-    public void PiProvider_provides_digits_of_pi() {
+    public void PiProvider_provides_nth_digit_of_pi() {
         String tenDigitsOfPi = "";
         for (int i = 0; i < 10; i++) {
             tenDigitsOfPi = tenDigitsOfPi + piProvider.getDigitOfPi(i);

@@ -31,7 +31,7 @@ public class PiScrollerViewModelTest {
     }
 
     @Test
-    public void PiAdapterViewModel_returns_nth_digit_of_pi() {
+    public void ViewModel_returns_nth_digit_of_pi() {
         int position = 4;
 
         doReturn('5').when(piProvider).getDigitOfPi(position);
@@ -41,7 +41,7 @@ public class PiScrollerViewModelTest {
     }
 
     @Test
-    public void PiAdapterViewModel_returns_a_decimal_separator_if_specified_position_is_0() {
+    public void ViewModel_returns_a_decimal_separator_if_specified_position_is_0() {
         int position = 0;
 
         doReturn('3').when(piProvider).getDigitOfPi(position);
@@ -49,4 +49,14 @@ public class PiScrollerViewModelTest {
         String expected = viewModel.getDigitOfPi(position);
         assertThat(expected, is("3,"));
     }
+
+    @Test
+    public void ViewModel_returns_number_of_digits_of_pi() {
+        int numberOfDigits = 1000;
+        doReturn(numberOfDigits).when(piProvider).getNumberOfDigitsOfPi();
+
+        assertThat(viewModel.getNumberOfDigitsOfPi(), is(numberOfDigits));
+    }
+
+
 }

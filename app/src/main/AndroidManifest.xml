@@ -11,7 +11,7 @@
         <activity
             android:name=".ui.PiScrollerActivity"
             android:label="@string/title"
-            android:windowSoftInputMode="adjustResize"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

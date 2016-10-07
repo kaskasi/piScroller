@@ -1,5 +1,8 @@
 <resources>
+    <string name="quiz_start_question">How does π start ?</string>
     <string name="quiz_question">What is the %s. digt of π</string>
     <string name="title">π</string>
     <string name="quiz">Quiz</string>
+    <string name="restart">Restart</string>
+    <string name="next">Next</string>
 </resources>
