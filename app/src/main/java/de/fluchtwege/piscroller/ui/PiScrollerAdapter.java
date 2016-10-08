@@ -7,9 +7,9 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import de.fluchtwege.piscroller.BR;
-import de.fluchtwege.piscroller.viewmodel.PiScrollerViewModel;
 import de.fluchtwege.piscroller.R;
 import de.fluchtwege.piscroller.databinding.PiDigitBinding;
+import de.fluchtwege.piscroller.viewmodel.PiScrollerViewModel;
 
 public class PiScrollerAdapter extends RecyclerView.Adapter<PiScrollerAdapter.PiScrollerViewHolder> {
 

@@ -1,8 +1,6 @@
-package de.fluchtwege.piscroller.ui;
+package de.fluchtwege.piscroller.ui.fixtures;
 
 import android.support.test.espresso.ViewInteraction;
-
-import de.fluchtwege.piscroller.Fixture;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
@@ -13,11 +11,11 @@ import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 
 
-public class EnterQuizAnswerFixture implements Fixture {
+public class EnterAnswer implements Fixture {
 
 	private String answer;
 
-	public EnterQuizAnswerFixture(String answer) {
+	public EnterAnswer(String answer) {
 		this.answer = answer;
 	}
 

@@ -1,8 +1,7 @@
-package de.fluchtwege.piscroller.ui;
+package de.fluchtwege.piscroller.ui.fixtures;
 
 import android.support.test.espresso.ViewInteraction;
 
-import de.fluchtwege.piscroller.Fixture;
 import de.fluchtwege.piscroller.R;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -13,7 +12,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.Matchers.allOf;
 
 
-public class OpenQuizFixture implements Fixture {
+public class OpenQuiz implements Fixture {
 
 	@Override
 	public void perform() {
