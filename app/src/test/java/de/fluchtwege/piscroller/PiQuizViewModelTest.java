@@ -55,10 +55,10 @@ public class PiQuizViewModelTest {
 		doReturn(0).when(piQuiz).getPosition();
 		assertTrue(piQuizViewModel.isNextPositionAvailable());
 
-		doReturn(999).when(piQuiz).getPosition();
+		doReturn(1000).when(piQuiz).getPosition();
 		assertTrue(piQuizViewModel.isNextPositionAvailable());
 
-		doReturn(1000).when(piQuiz).getPosition();
+		doReturn(1001).when(piQuiz).getPosition();
 		assertFalse(piQuizViewModel.isNextPositionAvailable());
 	}
 

@@ -27,7 +27,7 @@ public class PiProviderTest {
     }
 
     @Test
-    public void PiProvider_provides_1000_digits_of_pi() {
-        assertThat(piProvider.getNumberOfDigitsOfPi(), is(1000));
+    public void PiProvider_provides_pi_to_1000_digits_after_decimal_symbol() {
+        assertThat(piProvider.getNumberOfDigitsOfPi(), is(1001));
     }
 }

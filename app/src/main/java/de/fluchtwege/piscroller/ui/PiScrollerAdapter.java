@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import de.fluchtwege.piscroller.BR;
 import de.fluchtwege.piscroller.R;
 import de.fluchtwege.piscroller.databinding.PiDigitBinding;
+import de.fluchtwege.piscroller.viewmodel.PiDigitViewModel;
 import de.fluchtwege.piscroller.viewmodel.PiScrollerViewModel;
 
 public class PiScrollerAdapter extends RecyclerView.Adapter<PiScrollerAdapter.PiScrollerViewHolder> {
@@ -30,7 +31,8 @@ public class PiScrollerAdapter extends RecyclerView.Adapter<PiScrollerAdapter.Pi
     @Override
     public void onBindViewHolder(PiScrollerViewHolder holder, int position) {
         String piDigitsForPosition = piScrollerViewModel.getDigitOfPi(position);
-        holder.binding.setVariable(BR.piDigit, piDigitsForPosition);
+        PiDigitViewModel digit = new PiDigitViewModel(position, piDigitsForPosition);
+        holder.binding.setViewModel(digit);
     }
 
     @Override
@@ -40,9 +42,9 @@ public class PiScrollerAdapter extends RecyclerView.Adapter<PiScrollerAdapter.Pi
 
     public class PiScrollerViewHolder extends RecyclerView.ViewHolder {
 
-        private ViewDataBinding binding;
+        private PiDigitBinding binding;
 
-        public PiScrollerViewHolder(ViewDataBinding binding) {
+        public PiScrollerViewHolder(PiDigitBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

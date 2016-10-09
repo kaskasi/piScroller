@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00628B</color>
-    <color name="colorPrimaryDark">#E6E6DC</color>
-    <color name="colorAccent">#00628B</color>
+    <color name="colorPrimary">@color/blue</color>
+    <color name="colorPrimaryDark">@color/beige</color>
+    <color name="colorAccent">@color/blue</color>
+
+    <color name="orange">#ffbb33</color>
+    <color name="blue">#00628B</color>
+    <color name="beige">#E6E6DC</color>
+    <color name="red">#ff5533</color>
     <color name="disabled">#6e6e6e</color>
     <color name="correct_answer">#92CD00</color>
     <color name="wrong_answer">#CC1559</color>
-
-
+    <color name="white">#ffffff</color>
 </resources>

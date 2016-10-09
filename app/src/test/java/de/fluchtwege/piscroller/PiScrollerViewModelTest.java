@@ -52,7 +52,7 @@ public class PiScrollerViewModelTest {
 
     @Test
     public void ViewModel_returns_number_of_digits_of_pi() {
-        int numberOfDigits = 1000;
+        int numberOfDigits = 1001;//
         doReturn(numberOfDigits).when(piProvider).getNumberOfDigitsOfPi();
 
         assertThat(viewModel.getNumberOfDigitsOfPi(), is(numberOfDigits));

@@ -1,5 +1,6 @@
 <resources>
     <dimen name="margin">16dp</dimen>
-    <dimen name="scroller_text_size">128dp</dimen>
-    <dimen name="quiz_text_size">128dp</dimen>
+    <dimen name="text_size_large">128dp</dimen>
+    <dimen name="scroller_size">104dp</dimen>
+    <dimen name="quiz_text_size">@dimen/text_size_large</dimen>
 </resources>

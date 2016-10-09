@@ -14,11 +14,11 @@ import static de.fluchtwege.piscroller.ui.matchers.Matchers.isEnabled;
 import static de.fluchtwege.piscroller.ui.matchers.Matchers.withBackgroundColor;
 import static org.hamcrest.Matchers.allOf;
 
-public class CheckBackgroundColor implements Assertion {
+public class CheckQuizNextBackgroundColor implements Assertion {
 
     private @ColorRes int color;
 
-    public CheckBackgroundColor(@ColorRes int color) {
+    public CheckQuizNextBackgroundColor(@ColorRes int color) {
         this.color = color;
     }
 

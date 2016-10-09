@@ -9,7 +9,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 public class ScrollToPosition implements Fixture {
     private int position;
 
-    public ScrollToPosition(int position) {
+    public  ScrollToPosition(int position) {
         this.position = position;
     }
 

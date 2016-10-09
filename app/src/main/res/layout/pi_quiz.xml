@@ -20,9 +20,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:background="@color/blue"
             android:padding="@dimen/margin"
             android:text="@{piQuiz.atStart ? @string/quiz_start_question : String.format(@string/quiz_question, piQuiz.digitPosition)}"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/white"
             android:textSize="28dp"
             tools:text="What is the 3. digit of Pi ?" />
 
