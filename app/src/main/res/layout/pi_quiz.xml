@@ -12,7 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/beige"
         android:orientation="vertical">
 
         <TextView
@@ -22,24 +22,24 @@
             android:gravity="center"
             android:background="@color/blue"
             android:padding="@dimen/margin"
-            android:text="@{piQuiz.atStart ? @string/quiz_start_question : String.format(@string/quiz_question, piQuiz.digitPosition)}"
+            android:text="@{piQuiz.qustionHowPiStarts ? @string/quiz_start_question : String.format(@string/quiz_question, piQuiz.digitPosition)}"
             android:textColor="@color/white"
-            android:textSize="28dp"
+            android:textSize="@dimen/text_size_quiz"
             tools:text="What is the 3. digit of Pi ?" />
 
         <TextView
             android:id="@+id/quiz_next"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="@dimen/button_height"
             android:layout_alignParentBottom="true"
-            android:background="@{piQuiz.answerEntered ? @color/colorPrimary : @color/disabled}"
-            android:clickable="@{piQuiz.answerEntered}"
+            android:background="@{piQuiz.buttonEnabled ? @color/blue : @color/grey}"
+            android:clickable="@{piQuiz.buttonEnabled}"
             android:foreground="?selectableItemBackground"
             android:gravity="center"
             android:onClick="@{() -> piQuiz.onNext()}"
-            android:text="@{piQuiz.isNextPositionAvailable ? @string/next : @string/restart}"
-            android:textColor="#ffffff"
-            android:textSize="20dp"
+            android:text="@{piQuiz.isButtonTextNext ? @string/next : @string/restart}"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_quiz"
             android:textStyle="bold" />
 
         <EditText
@@ -47,14 +47,14 @@
             android:layout_height="match_parent"
             android:layout_above="@id/quiz_next"
             android:layout_below="@id/quiz_question"
-            android:enabled="@{!piQuiz.answerEntered}"
+            android:enabled="@{piQuiz.possibleToEnterAnswer}"
             android:gravity="center"
             android:inputType="number"
             android:maxLength="1"
             android:maxLines="1"
             android:text="@={piQuiz.answer}"
-            android:textColor="@{piQuiz.answerCorrect ? @color/correct_answer : @color/wrong_answer}"
-            android:textSize="@dimen/quiz_text_size"
+            android:textColor="@{piQuiz.answerColorGreen ? @color/green : @color/red}"
+            android:textSize="@dimen/text_size_answer"
             tools:text="1" />
     </RelativeLayout>
 </layout>

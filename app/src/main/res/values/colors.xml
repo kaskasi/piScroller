@@ -8,8 +8,7 @@
     <color name="blue">#00628B</color>
     <color name="beige">#E6E6DC</color>
     <color name="red">#ff5533</color>
-    <color name="disabled">#6e6e6e</color>
-    <color name="correct_answer">#92CD00</color>
-    <color name="wrong_answer">#CC1559</color>
+    <color name="grey">#6e6e6e</color>
+    <color name="green">#92CD00</color>
     <color name="white">#ffffff</color>
 </resources>

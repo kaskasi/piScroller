@@ -1,33 +1,30 @@
 package de.fluchtwege.piscroller;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import de.fluchtwege.piscroller.model.PiProvider;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-@RunWith(MockitoJUnitRunner.class)
 public class PiProviderTest {
 
-    @InjectMocks
-    PiProvider piProvider;
 
-    @Test
-    public void PiProvider_provides_nth_digit_of_pi() {
-        String tenDigitsOfPi = "";
-        for (int i = 0; i < 10; i++) {
-            tenDigitsOfPi = tenDigitsOfPi + piProvider.getDigitOfPi(i);
-        }
+	@Test
+	public void given_a_position_n_then_piprovider_provides_nth_digit_of_pi() {
+		PiProvider piProvider = new PiProvider();
 
-        assertThat(tenDigitsOfPi, is("3141592653"));
-    }
+		assertThat(piProvider.getDigitOfPi(1), is('1'));
+		assertThat(piProvider.getDigitOfPi(2), is('4'));
+		assertThat(piProvider.getDigitOfPi(3), is('1'));
+		assertThat(piProvider.getDigitOfPi(4), is('5'));
+		assertThat(piProvider.getDigitOfPi(5), is('9'));
+	}
 
-    @Test
-    public void PiProvider_provides_pi_to_1000_digits_after_decimal_symbol() {
-        assertThat(piProvider.getNumberOfDigitsOfPi(), is(1001));
-    }
+	@Test
+	public void given_pi_provider_then_piprovider_provides_pi_to_1000_digits_after_decimal_symbol() {
+		PiProvider piProvider = new PiProvider();
+
+		assertThat(piProvider.getNumberOfDigitsOfPi(), is(1001));
+	}
 }

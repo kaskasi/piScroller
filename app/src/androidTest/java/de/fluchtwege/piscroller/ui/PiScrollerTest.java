@@ -23,7 +23,7 @@ public class PiScrollerTest {
     public ActivityTestRule<PiScrollerActivity> mActivityTestRule = new ActivityTestRule<>(PiScrollerActivity.class);
 
     @Test
-    public void In_scroller_when_scroll_to_1000_digits() {
+    public void Given_in_scroller_when_scroll_to_1000_digits() {
         int start = 0;
         ScrollToPosition scrollToPosition = new ScrollToPosition(start);
         for (int i = start; i <= 1000; i++) {
@@ -33,14 +33,14 @@ public class PiScrollerTest {
     }
 
     @Test
-    public void In_scroller_when_scrolled_to_beginning_then_digits_with_even_position_have_beige_background() {
+    public void Given_in_scroller_when_scrolled_to_beginning_then_digits_with_even_position_have_beige_background() {
         new ScrollToPosition(0).perform();
 
         new CheckScrollerDigitBackground(R.color.beige, 2);
     }
 
     @Test
-    public void In_scroller_when_scrolled_to_beginning_then_digits_with_uneven_position_have_white_background() {
+    public void Given_in_scroller_when_scrolled_to_beginning_then_digits_with_uneven_position_have_white_background() {
         new ScrollToPosition(0).perform();
 
         new CheckScrollerDigitBackground(R.color.white, 1);

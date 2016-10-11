@@ -3,13 +3,20 @@ package de.fluchtwege.piscroller.viewmodel;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
-public class PiDigitViewModel extends BaseObservable {
-	private final int position;
-	private final String piDigit;
+import java.text.DecimalFormatSymbols;
 
-	public PiDigitViewModel(int position, String piDigit) {
+import de.fluchtwege.piscroller.model.PiProvider;
+
+public class PiDigitViewModel extends BaseObservable {
+
+	private final char decimalSeparator = new DecimalFormatSymbols().getDecimalSeparator();
+
+	private final PiProvider piProvider = new PiProvider();
+	private final int position;
+
+
+	public PiDigitViewModel(int position) {
 		this.position = position;
-		this.piDigit = piDigit;
 	}
 
 	@Bindable
@@ -22,11 +29,15 @@ public class PiDigitViewModel extends BaseObservable {
 
 	@Bindable
 	public String getPiDigit() {
-		return piDigit;
+		char digitOfPi = piProvider.getDigitOfPi(position);
+		if (position == 0) {
+			return "" + digitOfPi + decimalSeparator;
+		}
+		return "" + digitOfPi;
 	}
 
 	@Bindable
-	public boolean isPositionEven() {
+	public boolean isBackgroundBeige() {
 		return position % 2 == 0;
 	}
 }

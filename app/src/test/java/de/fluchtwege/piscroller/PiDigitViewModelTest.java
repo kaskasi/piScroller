@@ -1,7 +1,8 @@
 package de.fluchtwege.piscroller;
 
-import org.junit.After;
 import org.junit.Test;
+
+import java.util.Locale;
 
 import de.fluchtwege.piscroller.viewmodel.PiDigitViewModel;
 
@@ -12,48 +13,52 @@ import static org.junit.Assert.assertTrue;
 
 public class PiDigitViewModelTest {
 
-	PiDigitViewModel piDigitViewModel;
+	@Test
+	public void when_position_is_zero_then_pidigit_is_start_of_pi_with_decimal_separator() {
+		Locale.setDefault(Locale.GERMANY);
+		int position = 0;
+		PiDigitViewModel viewModel = new PiDigitViewModel(position);
 
-	@After
-	public void tearDown() {
-		piDigitViewModel = null;
+		String expected = viewModel.getPiDigit();
+		assertThat(expected, is("3,"));
 	}
 
 	@Test
-	public void ViewModel_returns_digit() {
-		piDigitViewModel = new PiDigitViewModel(0, "3");
+	public void when_position_is_greater_zero_then_viewmodel_returns_digit_of_pi_as_text() {
+		PiDigitViewModel viewModel = new PiDigitViewModel(2);
 
-		assertThat(piDigitViewModel.getPiDigit(), is("3"));
+		assertThat(viewModel.getPiDigit(), is("4"));
 	}
 
 	@Test
-	public void ViewModel_returns_position() {
-		piDigitViewModel = new PiDigitViewModel(1, "4");
+	public void when_position_is_zero_then_viewmodel_returns_empty() {
+		PiDigitViewModel viewModel = new PiDigitViewModel(0);
 
-		assertThat(piDigitViewModel.getPosition(), is("1"));
+		assertThat(viewModel.getPosition(), is(""));
 	}
 
 	@Test
-	public void ViewModel_returns_empty_text_for_position_zero() {
-		piDigitViewModel = new PiDigitViewModel(0, "3");
+	public void when_position_is_greater_zero_then_viewmodel_returns_position_of_pi_as_text() {
+		PiDigitViewModel viewModel = new PiDigitViewModel(1);
 
-		assertThat(piDigitViewModel.getPosition(), is(""));
+		assertThat(viewModel.getPosition(), is("1"));
 	}
 
 	@Test
-	public void ViewModel_retuns_even_for_position_zero() {
-		piDigitViewModel = new PiDigitViewModel(0, "3");
-		assertTrue(piDigitViewModel.isPositionEven());
+	public void when_position_is_zero_then_background_is_beige() {
+		PiDigitViewModel viewModel = new PiDigitViewModel(0);
+		assertTrue(viewModel.isBackgroundBeige());
 	}
 
 	@Test
-	public void ViewModel_returns_if_position_is_even() {
-		piDigitViewModel = new PiDigitViewModel(1, "1");
-		assertFalse(piDigitViewModel.isPositionEven());
-
-		piDigitViewModel = new PiDigitViewModel(2, "4");
-		assertTrue(piDigitViewModel.isPositionEven());
-
+	public void when_position_is_even_then_background_is_beige() {
+		PiDigitViewModel viewModel = new PiDigitViewModel(2);
+		assertTrue(viewModel.isBackgroundBeige());
 	}
 
+	@Test
+	public void when_position_is_uneven_then_background_is_not_beige() {
+		PiDigitViewModel viewModel = new PiDigitViewModel(1);
+		assertFalse(viewModel.isBackgroundBeige());
+	}
 }

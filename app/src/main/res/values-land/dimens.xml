@@ -3,5 +3,6 @@
 
     <dimen name="text_size_large">160dp</dimen>
     <dimen name="scroller_size">144dp</dimen>
-    <dimen name="quiz_text_size">64dp</dimen>
+    <dimen name="text_size_answer">160dp</dimen>
+    <dimen name="text_size_quiz">20dp</dimen>
 </resources>

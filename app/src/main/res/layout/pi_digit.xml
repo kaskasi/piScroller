@@ -28,16 +28,16 @@
                 android:gravity="center|right"
                 android:paddingRight="8dp"
                 android:text="@{viewModel.position}"
-                android:textColor="@android:color/white"
+                android:textColor="@color/white"
                 android:textSize="16dp"/>
 
             <TextView
                 android:id="@+id/digit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@{viewModel.positionEven ? @color/colorPrimaryDark : @color/white}"
+                android:background="@{viewModel.backgroundBeige ? @color/beige : @color/white}"
                 android:text="@{viewModel.getPiDigit}"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/blue"
                 android:gravity="center"
                 android:textSize="@dimen/text_size_large"
                 tools:text="3"/>

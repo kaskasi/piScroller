@@ -1,156 +1,209 @@
 package de.fluchtwege.piscroller;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 
-import de.fluchtwege.piscroller.model.PiProvider;
 import de.fluchtwege.piscroller.model.PiQuiz;
 import de.fluchtwege.piscroller.viewmodel.PiQuizViewModel;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
-@RunWith(MockitoJUnitRunner.class)
 public class PiQuizViewModelTest {
 
-	@Mock
-	PiQuiz piQuiz;
-
-	@InjectMocks
-	PiQuizViewModel piQuizViewModel;
-
 	@Test
-	public void ViewModel_returns_if_answer_is_entered() {
-		doReturn("3").when(piQuiz).getAnswer();
-		assertTrue(piQuizViewModel.isAnswerEntered());
+	public void when_answer_is_entered_then_viewmodel_notifies_view() {
+		PiQuiz quiz = new PiQuiz(0);
+		PiQuizViewModel viewModel = spy(new PiQuizViewModel(quiz));
 
-		doReturn("").when(piQuiz).getAnswer();
-		assertFalse(piQuizViewModel.isAnswerEntered());
+		viewModel.setAnswer("3");
+
+		verify(viewModel).notifyChange();
 	}
 
 	@Test
-	public void ViewModel_returns_if_answer_is_correct() {
-		doReturn("").when(piQuiz).getAnswer();
-		assertFalse(piQuizViewModel.isAnswerCorrect());
-
-		doReturn("4").when(piQuiz).getAnswer();
-		assertFalse(piQuizViewModel.isAnswerCorrect());
-
-		doReturn("3").when(piQuiz).getAnswer();
-		assertTrue(piQuizViewModel.isAnswerCorrect());
-	}
-
-	@Test
-	public void ViewModel_returns_next_position_is_available_when_provider_has_more_digits() {
-		doReturn(0).when(piQuiz).getPosition();
-		assertTrue(piQuizViewModel.isNextPositionAvailable());
-
-		doReturn(1000).when(piQuiz).getPosition();
-		assertTrue(piQuizViewModel.isNextPositionAvailable());
-
-		doReturn(1001).when(piQuiz).getPosition();
-		assertFalse(piQuizViewModel.isNextPositionAvailable());
-	}
-
-	@Test
-	public void ViewModel_notifies_view_when_answer_is_entered() {
+	public void when_answer_entered_then_viewmodel_returns_answer() {
 		String answer = "3";
-		PiQuizViewModel piQuizViewModel = spy(new PiQuizViewModel(piQuiz));
+		PiQuiz quiz = new PiQuiz(0);
+		PiQuizViewModel viewModel = new PiQuizViewModel(quiz);
 
-		piQuizViewModel.setAnswer(answer);
+		viewModel.setAnswer(answer);
+
+		assertThat(viewModel.getAnswer().toString(), is(answer));
+	}
+
+	@Test
+	public void then_button_is_not_enabled() {
+		PiQuiz quiz = new PiQuiz(0);
+		PiQuizViewModel viewModel = new PiQuizViewModel(quiz);
+
+		assertFalse(viewModel.isButtonEnabled());
+	}
+
+	@Test
+	public void when_answer_entered_then_button_is_enabled() {
+		PiQuiz quiz = new PiQuiz(0);
+		PiQuizViewModel viewModel = new PiQuizViewModel(quiz);
+
+		viewModel.setAnswer("3");
+
+		assertTrue(viewModel.isButtonEnabled());
+	}
+
+	@Test
+	public void when_correct_answer_entered_then_answer_color_is_green() {
+		PiQuiz quiz = new PiQuiz(0);
+		PiQuizViewModel viewModel = new PiQuizViewModel(quiz);
+
+		viewModel.setAnswer("3");
+
+		assertTrue(viewModel.isAnswerColorGreen());
+	}
+
+	@Test
+	public void when_wrong_answer_entered_then_answer_color_is_not_green() {
+		PiQuiz quiz = new PiQuiz(0);
+		PiQuizViewModel viewModel = new PiQuizViewModel(quiz);
+
+		viewModel.setAnswer("4");
+
+		assertFalse(viewModel.isAnswerColorGreen());
+	}
+
+	@Test
+	public void when_correct_answer_entered_then_button_text_is_next() {
+		PiQuiz quiz = new PiQuiz(0);
+		PiQuizViewModel viewModel = new PiQuizViewModel(quiz);
+
+		viewModel.setAnswer("3");
+
+		assertTrue(viewModel.isButtonTextNext());
+	}
+
+	@Test
+	public void when_wrong_answer_entered_then_button_text_is_restart() {
+		PiQuiz quiz = new PiQuiz(0);
+		PiQuizViewModel viewModel = new PiQuizViewModel(quiz);
+
+		viewModel.setAnswer("4");
+
+		assertFalse(viewModel.isButtonTextNext());
+	}
+
+	@Test
+	public void when_position_is_thousand_then_button_text_is_restart() {
+		int initialPosition = 1001;
+		PiQuiz quiz = new PiQuiz(initialPosition);
+		PiQuizViewModel viewModel = new PiQuizViewModel(quiz);
+
+		assertFalse(viewModel.isButtonTextNext());
+	}
+
+	@Test
+	public void then_it_is_possible_to_enter_answer() {
+		PiQuiz quiz = new PiQuiz(0);
+		PiQuizViewModel viewModel = new PiQuizViewModel(quiz);
+
+		assertTrue(viewModel.isPossibleToEnterAnswer());
+	}
+
+	@Test
+	public void when_answer_is_entered_then_it_is_not_possible_to_enter_answer() {
+		PiQuiz quiz = new PiQuiz(0);
+		PiQuizViewModel viewModel = new PiQuizViewModel(quiz);
+
+		viewModel.setAnswer("3");
+
+		assertFalse(viewModel.isPossibleToEnterAnswer());
+	}
+
+	@Test
+	public void when_answer_is_entered_when_next_is_pressed_then_it_is_possible_to_enter_answer() {
+		PiQuiz quiz = new PiQuiz(0);
+		PiQuizViewModel viewModel = new PiQuizViewModel(quiz);
+
+		viewModel.setAnswer("3");
+		viewModel.onNext();
+
+		assertTrue(viewModel.isPossibleToEnterAnswer());
+	}
+
+	@Test
+	public void when_next_is_pressed_then_viewmodel_notifies_view_() {
+		PiQuiz quiz = new PiQuiz(0);
+		PiQuizViewModel piQuizViewModel = spy(new PiQuizViewModel(quiz));
+
+		piQuizViewModel.onNext();
 
 		verify(piQuizViewModel).notifyChange();
 	}
 
 	@Test
-	public void ViewModel_returns_answer() {
-		String answer = "3";
-
-		doReturn(answer).when(piQuiz).getAnswer();
-
-		assertThat(piQuizViewModel.getAnswer().toString(), is(answer));
-	}
-
-	@Test
-	public void ViewModel_notifies_view_when_new_quiz_is_created() {
-		int initialPosition = 12;
-		CharSequence rightAnswer = "1";
-		doReturn(initialPosition).when(piQuiz).getPosition();
-		doReturn(rightAnswer).when(piQuiz).getAnswer();
-
-		PiQuizViewModel piQuizViewModel = spy(new PiQuizViewModel(piQuiz));
-		piQuizViewModel.onNext();
-
-		verify(piQuizViewModel).notifyChange();
-	}
-
-	@Test
-	public void ViewModel_increments_quiz_position_on_next() {
+	public void when_correct_answer_is_entered_when_next_is_pressed_then_quiz_position_is_incremented() {
 		int initialPosition = 1;
-		CharSequence rightAnswer = "1";
-		doReturn(initialPosition).when(piQuiz).getPosition();
-		doReturn(rightAnswer).when(piQuiz).getAnswer();
+		PiQuiz quiz = new PiQuiz(initialPosition);
+		PiQuizViewModel viewModel = new PiQuizViewModel(quiz);
 
-		PiQuizViewModel piQuizViewModel = spy(new PiQuizViewModel(piQuiz));
-		piQuizViewModel.onNext();
+		viewModel.setAnswer("1");
+		viewModel.onNext();
 
-		verify(piQuizViewModel).setupNextQuiz(initialPosition + 1);
+		final PiQuiz nextQuiz = viewModel.getPiQuiz();
+		assertThat(nextQuiz.getPosition(), is(initialPosition + 1));
 	}
 
 	@Test
-	public void ViewModel_resets_quiz_on_next_when_answer_is_wrong() {
+	public void when_wrong_answer_is_entered_when_restart_is_pressed_then_quiz_position_is_zero() {
 		int initialPosition = 1;
-		CharSequence wrongAnswer = "4";
-		doReturn(initialPosition).when(piQuiz).getPosition();
-		doReturn(wrongAnswer).when(piQuiz).getAnswer();
+		PiQuiz quiz = new PiQuiz(initialPosition);
+		PiQuizViewModel viewModel = new PiQuizViewModel(quiz);
 
-		PiQuizViewModel piQuizViewModel = spy(new PiQuizViewModel(piQuiz));
-		piQuizViewModel.onNext();
+		viewModel.setAnswer("2");
+		viewModel.onNext();
 
-		verify(piQuizViewModel).setupNextQuiz(0);
+		final PiQuiz nextQuiz = viewModel.getPiQuiz();
+		assertThat(nextQuiz.getPosition(), is(0));
 	}
 
 	@Test
-	public void ViewModel_resets_quiz_on_next_if_next_position_is_not_available() {
-		int numberOfDigits = 1000;
-		CharSequence rightAnswer = "1";
-		doReturn(numberOfDigits).when(piQuiz).getPosition();
-		doReturn(rightAnswer).when(piQuiz).getAnswer();
+	public void when_position_is_thousand_when_correct_answer_is_entered_when_restart_is_pressed_then_quiz_position_is_zero() {
+		int initialPosition = 1001;
+		PiQuiz quiz = new PiQuiz(initialPosition);
+		PiQuizViewModel viewModel = new PiQuizViewModel(quiz);
 
-		PiQuizViewModel piQuizViewModel = spy(new PiQuizViewModel(piQuiz));
-		piQuizViewModel.onNext();
+		viewModel.setAnswer("9");
+		viewModel.onNext();
 
-		verify(piQuizViewModel).setupNextQuiz(0);
+		final PiQuiz nextQuiz = viewModel.getPiQuiz();
+		assertThat(nextQuiz.getPosition(), is(0));
 	}
 
 	@Test
-	public void ViewModel_returns_if_quiz_is_at_start() {
-		doReturn(0).when(piQuiz).getPosition();
-		assertTrue(piQuizViewModel.isAtStart());
+	public void when_position_is_zero_then_question_is_how_pi_starts() {
+		int initialPosition = 0;
+		PiQuiz quiz = new PiQuiz(initialPosition);
+		PiQuizViewModel viewModel = new PiQuizViewModel(quiz);
 
-		doReturn(1).when(piQuiz).getPosition();
-		assertFalse(piQuizViewModel.isAtStart());
+		assertTrue(viewModel.isQustionHowPiStarts());
 	}
 
 	@Test
-	public void ViewModel_returns_digit_positions_as_text() {
-		doReturn(0).when(piQuiz).getPosition();
-		assertThat(piQuizViewModel.getDigitPosition(), is("0"));
+	public void then_viewmodel_returns_digit_position_as_text() {
+		int initialPosition = 1;
+		PiQuiz quiz = new PiQuiz(initialPosition);
+		PiQuizViewModel viewModel = new PiQuizViewModel(quiz);
+
+		assertThat(viewModel.getDigitPosition(), is("" + initialPosition));
 	}
 
 	@Test
-	public void ViewModel_returns_pi_quiz() {
-		doReturn(3).when(piQuiz).getPosition();
-		assertThat(piQuizViewModel.getPiQuiz().getPosition(), is(3));
+	public void then_viewmodel_returns_pi_quiz() {
+		int initialPosition = 1;
+		PiQuiz quiz = new PiQuiz(initialPosition);
+		PiQuizViewModel viewModel = new PiQuizViewModel(quiz);
+
+		assertThat(viewModel.getPiQuiz().getPosition(), is(initialPosition));
 	}
 }
