@@ -1,9 +1,10 @@
-package de.fluchtwege.piscroller.ui.assertions;
+package de.fluchtwege.piscroller.espresso.assertions;
 
 import android.support.annotation.ColorRes;
 import android.support.test.espresso.ViewInteraction;
 import android.view.View;
 
+import org.hamcrest.Matchers;
 import org.hamcrest.core.IsInstanceOf;
 
 import de.fluchtwege.piscroller.R;
@@ -14,8 +15,6 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static de.fluchtwege.piscroller.ui.matchers.Matchers.childAtPosition;
-import static de.fluchtwege.piscroller.ui.matchers.Matchers.withBackgroundColor;
 import static org.hamcrest.Matchers.allOf;
 
 public class CheckScrollerDigitBackground implements Assertion {
@@ -35,13 +34,13 @@ public class CheckScrollerDigitBackground implements Assertion {
 		String digitOfPi = String.valueOf(new PiProvider().getDigitOfPi(position));
 
 		ViewInteraction textView = onView(
-				allOf(withId(R.id.digit), withText(digitOfPi),
-						childAtPosition(
-								childAtPosition(
+				Matchers.allOf(withId(R.id.digit), withText(digitOfPi),
+						de.fluchtwege.piscroller.espresso.matchers.Matchers.childAtPosition(
+								de.fluchtwege.piscroller.espresso.matchers.Matchers.childAtPosition(
 										IsInstanceOf.<View>instanceOf(android.widget.RelativeLayout.class),
 										0),
 								1),
 						isDisplayed()));
-		textView.check(matches(withBackgroundColor(color)));
+		textView.check(matches(de.fluchtwege.piscroller.espresso.matchers.Matchers.withBackgroundColor(color)));
 	}
 }

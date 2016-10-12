@@ -1,4 +1,4 @@
-package de.fluchtwege.piscroller.ui.fixtures;
+package de.fluchtwege.piscroller.espresso.fixtures;
 
 import android.support.test.espresso.ViewInteraction;
 
@@ -13,10 +13,10 @@ import static org.hamcrest.Matchers.allOf;
 
 public class PressNext implements Fixture {
 
-    @Override
-    public void perform() {
-        ViewInteraction appCompatTextView = onView(
-                allOf(withId(R.id.quiz_next), withText("Next"), isDisplayed()));
-        appCompatTextView.perform(click());
-    }
+	@Override
+	public void perform() {
+		ViewInteraction appCompatTextView = onView(
+				allOf(withId(R.id.quiz_next), withText("Next"), isDisplayed()));
+		appCompatTextView.perform(click());
+	}
 }

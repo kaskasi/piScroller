@@ -1,4 +1,4 @@
-package de.fluchtwege.piscroller.ui;
+package de.fluchtwege.piscroller.espresso;
 
 
 import android.support.test.rule.ActivityTestRule;
@@ -12,14 +12,15 @@ import org.junit.runner.RunWith;
 
 import de.fluchtwege.piscroller.R;
 import de.fluchtwege.piscroller.model.PiProvider;
-import de.fluchtwege.piscroller.ui.assertions.CheckButtonEnabled;
-import de.fluchtwege.piscroller.ui.assertions.CheckQuizNextBackgroundColor;
-import de.fluchtwege.piscroller.ui.assertions.CheckButtonText;
-import de.fluchtwege.piscroller.ui.assertions.CheckDigitColor;
-import de.fluchtwege.piscroller.ui.assertions.CheckQuizQuestion;
-import de.fluchtwege.piscroller.ui.fixtures.EnterAnswer;
-import de.fluchtwege.piscroller.ui.fixtures.OpenQuiz;
-import de.fluchtwege.piscroller.ui.fixtures.PressNext;
+import de.fluchtwege.piscroller.ui.PiScrollerActivity;
+import de.fluchtwege.piscroller.espresso.assertions.CheckButtonEnabled;
+import de.fluchtwege.piscroller.espresso.assertions.CheckButtonText;
+import de.fluchtwege.piscroller.espresso.assertions.CheckDigitColor;
+import de.fluchtwege.piscroller.espresso.assertions.CheckQuizNextBackgroundColor;
+import de.fluchtwege.piscroller.espresso.assertions.CheckQuizQuestion;
+import de.fluchtwege.piscroller.espresso.fixtures.EnterAnswer;
+import de.fluchtwege.piscroller.espresso.fixtures.OpenQuiz;
+import de.fluchtwege.piscroller.espresso.fixtures.PressNext;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
@@ -34,7 +35,7 @@ public class PiQuizTest {
 
 		new EnterAnswer("3").perform();
 
-		new CheckDigitColor(R.color.green).performAssertion();
+		new CheckDigitColor(R.color.green, true).performAssertion();
 	}
 
 	@Test
@@ -43,7 +44,7 @@ public class PiQuizTest {
 
 		new EnterAnswer("4").perform();
 
-		new CheckDigitColor(R.color.red).performAssertion();
+		new CheckDigitColor(R.color.red, true).performAssertion();
 	}
 
 	@Test
@@ -60,8 +61,8 @@ public class PiQuizTest {
 
 		new EnterAnswer("4").perform();
 
-		String next = testRule.getActivity().getString(R.string.restart);
-		new CheckButtonText(next).performAssertion();
+		String restart = testRule.getActivity().getString(R.string.restart);
+		new CheckButtonText(restart).performAssertion();
 	}
 
 	@Test

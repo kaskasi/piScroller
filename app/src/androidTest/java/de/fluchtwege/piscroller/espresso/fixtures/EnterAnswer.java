@@ -1,4 +1,4 @@
-package de.fluchtwege.piscroller.ui.fixtures;
+package de.fluchtwege.piscroller.espresso.fixtures;
 
 import android.support.test.espresso.ViewInteraction;
 
